@@ -96,14 +96,6 @@ public class UserRepository implements GBRepository {
     }
 
     @Override
-    public User createUser(UserView view) {
-        String firstName = view.prompt("Имя: ");
-        String lastName = view.prompt("Фамилия: ");
-        String phone = view.prompt("Номер телефона: ");
-        return new User(firstName, lastName, phone);
-    }
-
-    @Override
     public List<String> readAll() {
         List<String> lines = new ArrayList<>();
         try {

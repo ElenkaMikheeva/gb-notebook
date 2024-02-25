@@ -3,6 +3,7 @@ package notebook.view;
 import notebook.controller.UserController;
 import notebook.model.User;
 import notebook.util.Commands;
+import notebook.util.Creator;
 import notebook.util.Strings;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class UserView {
             String userId;
             switch (com) {
                 case CREATE:
-                    User u = userController.createUser(this);
+                    Creator newCreator = new Creator(this::prompt);
+                    User u = newCreator.createUser();
 
                     String validationResult = validateNewUser(u);
                     if (!validationResult.isEmpty()) {
@@ -46,7 +48,8 @@ public class UserView {
                     break;
                 case UPDATE:
                     userId = prompt("Enter user id: ");
-                    userController.updateUser(userId, userController.createUser(this));
+                    Creator updateCreator = new Creator(this::prompt);
+                    userController.updateUser(userId, updateCreator.createUser());
                     break;
                 case LIST:
                     List<User> users = userController.readAll();

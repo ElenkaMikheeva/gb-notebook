@@ -42,8 +42,4 @@ public class UserController {
     public boolean delete(String id) {
         return repository.delete(Long.parseLong(id));
     }
-
-    public User createUser(UserView view) {
-        return repository.createUser(view);
-    }
 }
