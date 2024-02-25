@@ -2,7 +2,6 @@ package notebook.controller;
 
 import notebook.model.User;
 import notebook.model.repository.GBRepository;
-import notebook.view.UserView;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +17,7 @@ public class UserController {
         repository.create(user);
     }
 
-    public User readUser(Long userId) throws Exception {
+    public User readUser(Long userId) throws RuntimeException {
         List<User> users = repository.findAll();
         for (User user : users) {
             if (Objects.equals(user.getId(), userId)) {

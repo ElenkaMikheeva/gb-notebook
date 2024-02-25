@@ -3,7 +3,6 @@ package notebook.model.repository.impl;
 import notebook.util.mapper.impl.UserMapper;
 import notebook.model.User;
 import notebook.model.repository.GBRepository;
-import notebook.view.UserView;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class UserRepository implements GBRepository {
     }
 
     @Override
-    public User create(User user) {
+    public void create(User user) {
         List<User> users = findAll();
         long max = 0L;
         for (User u : users) {
@@ -49,7 +48,6 @@ public class UserRepository implements GBRepository {
         user.setId(next);
         users.add(user);
         write(users);
-        return user;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class UserRepository implements GBRepository {
     }
 
     @Override
-    public Optional<User> update(Long userId, User newUser) {
+    public void update(Long userId, User newUser) {
         List<User> users = findAll();
         User oldUser = users.stream()
                 .filter(u -> u.getId().equals(userId))
@@ -79,7 +77,6 @@ public class UserRepository implements GBRepository {
             oldUser.setPhone(str);
         }
         write(users);
-        return Optional.of(newUser);
     }
 
     @Override
@@ -95,7 +92,6 @@ public class UserRepository implements GBRepository {
         return false;
     }
 
-    @Override
     public List<String> readAll() {
         List<String> lines = new ArrayList<>();
         try {
@@ -123,7 +119,6 @@ public class UserRepository implements GBRepository {
         return lines;
     }
 
-    @Override
     public void saveAll(List<String> data) {
         try (FileWriter writer = new FileWriter(fileName, false)) {
             for (String line : data) {
